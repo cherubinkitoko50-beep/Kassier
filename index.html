@@ -109,7 +109,7 @@
             </div>
         </section>
 
-        <!-- 🚚 LIVRAISON -->
+        <!-- 🚚 LIVRAISON & CALCULATEUR LIBRE -->
         <section id="tab-livraisons" class="hidden space-y-4">
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h2 class="font-bold text-base mb-3 text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
@@ -122,10 +122,13 @@
                     </div>
                     <div class="grid grid-cols-2 gap-2.5">
                         <div>
-                            <label class="block text-xs font-bold mb-1">Produit</label>
+                            <label class="block text-xs font-bold mb-1">Boisson / Produit</label>
                             <select id="prodSelect" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2.5 text-xs font-bold focus:outline-none focus:border-emerald-500">
-                                <option value="4500">Primus (4.500 FCFA)</option>
+                                <option value="4500">Primus 65cl (4.500 FCFA)</option>
                                 <option value="5000">Beaufort (5.000 FCFA)</option>
+                                <option value="4000">Guinness (4.000 FCFA)</option>
+                                <option value="3500">Top Coca (3.500 FCFA)</option>
+                                <option value="6000">Mutzig (6.000 FCFA)</option>
                             </select>
                         </div>
                         <div>
@@ -143,56 +146,61 @@
             </div>
         </section>
 
-        <!-- 📦 STOCK -->
+        <!-- 📦 STOCK & AJOUT LIBRE DE PRODUITS -->
         <section id="tab-produits" class="hidden space-y-4">
-            <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="font-bold text-base mb-3">Tarifs & Stock du Dépôt</h2>
-                <p class="text-xs text-slate-500">Gestion dynamique des bouteilles et consignes.</p>
+            <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                <div class="flex justify-between items-center">
+                    <h2 class="font-bold text-base">Catalogue & Stock du Dépôt</h2>
+                    <button onclick="openAddProductModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-2 rounded-xl shadow-sm">
+                        <i class="fa-solid fa-plus mr-1"></i> Ajouter Boisson
+                    </button>
+                </div>
+                <!-- LISTE DYNAMIQUE DES PRODUITS -->
+                <div id="dynamicProductList" class="space-y-2">
+                    <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs">
+                        <div>
+                            <p class="font-extrabold">Primus 65cl (Brasco)</p>
+                            <p class="text-[10px] text-slate-500">Stock: 85 casiers • Caution: 3.000 FCFA</p>
+                        </div>
+                        <span class="font-black text-emerald-600 dark:text-emerald-400">4.500 FCFA</span>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- 👥 CLIENTS -->
         <section id="tab-clients" class="hidden space-y-4">
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h2 class="font-bold text-base mb-3">Clients & Événements</h2>
+                <h2 class="font-bold text-base mb-3">Clients, Bars & Deuils</h2>
+                <p class="text-xs text-slate-500">Suivi des crédits et cautions en cours.</p>
             </div>
         </section>
 
-        <!-- 👤 PROFIL, THÈMES & COCKPIT -->
+        <!-- 👤 PROFIL, VILLES DU CONGO, THÈMES & COCKPIT -->
         <section id="tab-profil" class="hidden space-y-4">
-            <div id="authBlock" class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-                <h2 class="font-bold text-base text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-user-lock text-emerald-600"></i> Compte & Authentification
-                </h2>
-                <div id="authForms" class="space-y-3">
-                    <input type="email" id="authUserEmail" placeholder="Adresse Email" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
-                    <input type="password" id="authUserPass" placeholder="Mot de Passe" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="handleSignIn()" class="bg-emerald-600 text-white font-extrabold text-xs py-2.5 rounded-xl shadow-md">Se Connecter</button>
-                        <button onclick="handleSignUp()" class="bg-slate-800 text-slate-200 font-extrabold text-xs py-2.5 rounded-xl shadow-md">Créer Compte</button>
-                    </div>
-                </div>
-                <div id="authUserInfo" class="hidden space-y-2">
-                    <p class="text-xs text-slate-400">Connecté : <span id="lblUserEmail" class="font-bold text-emerald-400"></span></p>
-                    <button onclick="handleSignOut()" class="w-full bg-red-600/20 border border-red-500/30 text-red-400 font-extrabold text-xs py-2 rounded-xl">Se Déconnecter</button>
-                </div>
-            </div>
-            
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-                <h2 class="font-bold text-base text-slate-800 dark:text-slate-100">Profil du Dépôt</h2>
+                <h2 class="font-bold text-base text-slate-800 dark:text-slate-100">Profil & Localisation du Dépôt</h2>
                 <div>
-                    <label class="block text-xs font-bold mb-1">Nom du Dépôt</label>
+                    <label class="block text-xs font-bold mb-1">Nom du Dépôt / Établissement</label>
                     <input type="text" id="depotNameInput" value="Dépôt Central Moungali" onchange="updateDepotInfo()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold mb-1">Ville</label>
+                    <label class="block text-xs font-bold mb-1">Ville / Département 🇨🇬</label>
                     <select id="citySelect" onchange="updateDepotInfo()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-bold">
                         <option value="Brazzaville">Brazzaville</option>
                         <option value="Pointe-Noire">Pointe-Noire</option>
+                        <option value="Dolisie">Dolisie</option>
+                        <option value="Nkayi">Nkayi</option>
+                        <option value="Owando">Owando</option>
+                        <option value="Ouesso">Ouesso</option>
+                        <option value="Oyo">Oyo</option>
+                        <option value="Sibiti">Sibiti</option>
+                        <option value="Madingou">Madingou</option>
+                        <option value="Kinkala">Kinkala</option>
                     </select>
                 </div>
 
-                <!-- BASCULE THÈME SOMBRE / CLAIR GARANTIE -->
+                <!-- BASCULE THÈME SOMBRE / CLAIR ROBUSTE -->
                 <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center">
                     <div>
                         <p class="text-xs font-bold">Thème de l'Application</p>
@@ -256,6 +264,7 @@
         </div>
     </nav>
 
+    <!-- SCRIPT DE GESTION ROBUSTE -->
     <script>
         const SUPABASE_URL = 'https://vxhndndszbpigurirsgd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_2xK_jIFzYU1Qr9MN3wraGQ_b1M1jg28';
@@ -297,54 +306,24 @@
             }
         }
 
-        async function checkUserRole(user) {
-            if (!user || !supabaseClient) return;
-            const { data: profiles } = await supabaseClient.from('profiles').select('*');
-            let isFirstUser = (!profiles || profiles.length === 0);
-            let userProfile = profiles ? profiles.find(p => p.id === user.id) : null;
+        function openAddProductModal() {
+            const name = prompt("Nom de la boisson (ex: Mutzig 65cl) :");
+            if (!name) return;
+            const price = prompt("Prix du casier en FCFA (ex: 6000) :");
+            if (!price) return;
 
-            if (isFirstUser || (userProfile && userProfile.role === 'SUPER_ADMIN')) {
-                if (isFirstUser) {
-                    await supabaseClient.from('profiles').insert([{ id: user.id, email: user.email, role: 'SUPER_ADMIN' }]);
-                }
-                document.getElementById('superAdminPanel').classList.remove('hidden');
-                document.getElementById('userRoleBadge').innerHTML = `<i class="fa-solid fa-crown text-amber-400"></i> <span class="text-amber-400 font-black">Super-Admin</span>`;
-            } else {
-                document.getElementById('superAdminPanel').classList.add('hidden');
-            }
-        }
+            const select = document.getElementById('prodSelect');
+            const opt = document.createElement('option');
+            opt.value = price;
+            opt.textContent = `${name} (${parseInt(price).toLocaleString()} FCFA)`;
+            select.appendChild(opt);
 
-        async function handleSignUp() {
-            const email = document.getElementById('authUserEmail').value;
-            const pass = document.getElementById('authUserPass').value;
-            if (!email || !pass) return alert("Veuillez saisir votre email et mot de passe");
-            const { data, error } = await supabaseClient.auth.signUp({ email, password: pass });
-            if (error) return alert("Erreur d'inscription : " + error.message);
-            alert("Compte créé avec succès !");
-            if (data.user) { updateUIAuth(data.user); checkUserRole(data.user); }
-        }
-
-        async function handleSignIn() {
-            const email = document.getElementById('authUserEmail').value;
-            const pass = document.getElementById('authUserPass').value;
-            if (!email || !pass) return alert("Veuillez saisir votre email et mot de passe");
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
-            if (error) return alert("Erreur de connexion : " + error.message);
-            if (data.user) { updateUIAuth(data.user); checkUserRole(data.user); }
-        }
-
-        async function handleSignOut() {
-            await supabaseClient.auth.signOut();
-            document.getElementById('authForms').classList.remove('hidden');
-            document.getElementById('authUserInfo').classList.add('hidden');
-            document.getElementById('superAdminPanel').classList.add('hidden');
-            document.getElementById('userRoleBadge').innerHTML = `<i class="fa-solid fa-clock text-amber-500"></i> <span>16j d'essai</span>`;
-        }
-
-        function updateUIAuth(user) {
-            document.getElementById('authForms').classList.add('hidden');
-            document.getElementById('authUserInfo').classList.remove('hidden');
-            document.getElementById('lblUserEmail').textContent = user.email;
+            const list = document.getElementById('dynamicProductList');
+            const item = document.createElement('div');
+            item.className = "p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs";
+            item.innerHTML = `<div><p class="font-extrabold">${name}</p><p class="text-[10px] text-slate-500">Nouveau produit ajouté</p></div><span class="font-black text-emerald-600 dark:text-emerald-400">${parseInt(price).toLocaleString()} FCFA</span>`;
+            list.appendChild(item);
+            alert("Boisson ajoutée avec succès !");
         }
 
         function updateDepotInfo() {
@@ -352,16 +331,6 @@
             const city = document.getElementById('citySelect').value;
             document.getElementById('headerDepotName').textContent = `${name} • ${city}`;
         }
-
-        window.addEventListener('load', async () => {
-            if (supabaseClient) {
-                const { data: { session } } = await supabaseClient.auth.getSession();
-                if (session && session.user) {
-                    updateUIAuth(session.user);
-                    checkUserRole(session.user);
-                }
-            }
-        });
 
         switchTab('tab-accueil');
     </script>
