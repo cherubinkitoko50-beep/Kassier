@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kassier 🇨🇬 - Solution PWA Gestion Dépôts & Consignes</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         tailwind.config = {
@@ -31,11 +29,10 @@
 </head>
 <body class="bg-brand-lightBg dark:bg-brand-dark text-slate-800 dark:text-slate-100 min-h-screen pb-28 transition-colors duration-200">
 
-    <!-- TOP BAR DE NAVIGATION AVEC LOGO SVG PREMIUM -->
+    <!-- TOP BAR DE NAVIGATION -->
     <header class="sticky top-0 z-40 bg-white/90 dark:bg-brand-surface/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-3 shadow-sm">
         <div class="flex justify-between items-center max-w-xl mx-auto">
             <div class="flex items-center gap-3">
-                <!-- VRAI LOGO KASSIER : CASIER & BOUTEILLES SVG -->
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 via-emerald-700 to-slate-900 p-2 shadow-lg shadow-emerald-950/20 flex items-center justify-center border border-emerald-400/30">
                     <svg viewBox="0 0 24 24" fill="none" class="w-full h-full text-amber-400 stroke-current stroke-2">
                         <path d="M3 8h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" fill="currentColor" fill-opacity="0.1" />
@@ -61,7 +58,6 @@
                 </div>
             </div>
 
-            <!-- BADGE STATUT ESSAI / RÔLE -->
             <div id="userRoleBadge" class="bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
                 <i class="fa-solid fa-clock text-amber-500"></i>
                 <span id="txtTrialDays">16j d'essai</span>
@@ -69,10 +65,10 @@
         </div>
     </header>
 
-    <!-- CONTENU PRINCIPAL DYNAMIQUE -->
+    <!-- CONTENU PRINCIPAL -->
     <main class="max-w-xl mx-auto px-4 pt-4">
 
-        <!-- 🏠 ÉCRAN 1: ACCUEIL / TABLEAU DE BORD -->
+        <!-- 🏠 ACCUEIL -->
         <section id="tab-accueil" class="space-y-4">
             <div class="bg-gradient-to-br from-emerald-700 via-emerald-800 to-slate-900 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
                 <div class="absolute -right-4 -bottom-4 w-28 h-28 bg-white/10 rounded-full blur-2xl"></div>
@@ -95,22 +91,16 @@
                 </div>
             </div>
 
-            <!-- ACCÈS RAPIDES -->
             <div class="grid grid-cols-2 gap-3">
                 <button onclick="switchTab('tab-clients')" class="p-4 rounded-2xl bg-white dark:bg-brand-surface border border-slate-200 dark:border-slate-800 flex items-center gap-3 shadow-sm hover:border-emerald-500 transition">
-                    <div class="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-lg font-bold">
-                        <i class="fa-solid fa-ribbon"></i>
-                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-ribbon"></i></div>
                     <div class="text-left">
                         <p class="text-xs font-bold">Mode Deuil</p>
                         <p class="text-[10px] text-slate-500 dark:text-slate-400">Événements & Prêts</p>
                     </div>
                 </button>
-
                 <button onclick="switchTab('tab-livraisons')" class="p-4 rounded-2xl bg-white dark:bg-brand-surface border border-slate-200 dark:border-slate-800 flex items-center gap-3 shadow-sm hover:border-emerald-500 transition">
-                    <div class="w-11 h-11 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg font-bold">
-                        <i class="fa-solid fa-motorcycle"></i>
-                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg font-bold"><i class="fa-solid fa-motorcycle"></i></div>
                     <div class="text-left">
                         <p class="text-xs font-bold">Tournée Kavaki</p>
                         <p class="text-[10px] text-slate-500 dark:text-slate-400">Clôture Livreurs</p>
@@ -119,7 +109,7 @@
             </div>
         </section>
 
-        <!-- 🚚 ÉCRAN 2: LIVRAISON -->
+        <!-- 🚚 LIVRAISON -->
         <section id="tab-livraisons" class="hidden space-y-4">
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h2 class="font-bold text-base mb-3 text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
@@ -133,16 +123,14 @@
                     <div class="grid grid-cols-2 gap-2.5">
                         <div>
                             <label class="block text-xs font-bold mb-1">Produit</label>
-                            <select id="prodSelect" onchange="recalcTotal()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2.5 text-xs font-bold focus:outline-none focus:border-emerald-500">
+                            <select id="prodSelect" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-2.5 text-xs font-bold focus:outline-none focus:border-emerald-500">
                                 <option value="4500">Primus (4.500 FCFA)</option>
                                 <option value="5000">Beaufort (5.000 FCFA)</option>
-                                <option value="4000">Guinness (4.000 FCFA)</option>
-                                <option value="3500">Top Coca (3.500 FCFA)</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-bold mb-1">Casiers Livrés</label>
-                            <input type="number" id="qtyDelivered" value="10" oninput="recalcTotal()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-lg font-black text-center focus:outline-none focus:border-emerald-500">
+                            <input type="number" id="qtyDelivered" value="10" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-lg font-black text-center focus:outline-none focus:border-emerald-500">
                         </div>
                     </div>
                     <div class="p-4 bg-slate-50 dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
@@ -155,7 +143,7 @@
             </div>
         </section>
 
-        <!-- 📦 ÉCRAN 3: STOCK -->
+        <!-- 📦 STOCK -->
         <section id="tab-produits" class="hidden space-y-4">
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h2 class="font-bold text-base mb-3">Tarifs & Stock du Dépôt</h2>
@@ -163,78 +151,60 @@
             </div>
         </section>
 
-        <!-- 👥 ÉCRAN 4: CLIENTS -->
+        <!-- 👥 CLIENTS -->
         <section id="tab-clients" class="hidden space-y-4">
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h2 class="font-bold text-base mb-3">Clients & Événements</h2>
             </div>
         </section>
 
-        <!-- 👤 ÉCRAN 5: PROFIL, CONNEXION & COCKPIT SUPER-ADMIN PRIVÉ -->
+        <!-- 👤 PROFIL, THÈMES & COCKPIT -->
         <section id="tab-profil" class="hidden space-y-4">
-
-            <!-- MODAL DE CONNEXION / INSCRIPTION -->
             <div id="authBlock" class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
                 <h2 class="font-bold text-base text-slate-800 dark:text-slate-100 flex items-center gap-2">
                     <i class="fa-solid fa-user-lock text-emerald-600"></i> Compte & Authentification
                 </h2>
                 <div id="authForms" class="space-y-3">
-                    <input type="email" id="authUserEmail" placeholder="Adresse Email (ex: fondation@kassier.cg)" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
+                    <input type="email" id="authUserEmail" placeholder="Adresse Email" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
                     <input type="password" id="authUserPass" placeholder="Mot de Passe" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
-                    
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="handleSignIn()" class="bg-emerald-600 text-white font-extrabold text-xs py-2.5 rounded-xl shadow-md hover:bg-emerald-500">Se Connecter</button>
-                        <button onclick="handleSignUp()" class="bg-slate-800 text-slate-200 font-extrabold text-xs py-2.5 rounded-xl shadow-md hover:bg-slate-700">Créer Compte</button>
+                        <button onclick="handleSignIn()" class="bg-emerald-600 text-white font-extrabold text-xs py-2.5 rounded-xl shadow-md">Se Connecter</button>
+                        <button onclick="handleSignUp()" class="bg-slate-800 text-slate-200 font-extrabold text-xs py-2.5 rounded-xl shadow-md">Créer Compte</button>
                     </div>
                 </div>
                 <div id="authUserInfo" class="hidden space-y-2">
-                    <p class="text-xs text-slate-400">Connecté en tant que : <span id="lblUserEmail" class="font-bold text-emerald-400"></span></p>
+                    <p class="text-xs text-slate-400">Connecté : <span id="lblUserEmail" class="font-bold text-emerald-400"></span></p>
                     <button onclick="handleSignOut()" class="w-full bg-red-600/20 border border-red-500/30 text-red-400 font-extrabold text-xs py-2 rounded-xl">Se Déconnecter</button>
                 </div>
             </div>
             
-            <!-- PROFIL DU DÉPÔT CLIENT -->
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
                 <h2 class="font-bold text-base text-slate-800 dark:text-slate-100">Profil du Dépôt</h2>
                 <div>
-                    <label class="block text-xs font-bold mb-1">Nom du Dépôt / Établissement</label>
+                    <label class="block text-xs font-bold mb-1">Nom du Dépôt</label>
                     <input type="text" id="depotNameInput" value="Dépôt Central Moungali" onchange="updateDepotInfo()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold mb-1">Ville du Congo 🇨🇬</label>
+                    <label class="block text-xs font-bold mb-1">Ville</label>
                     <select id="citySelect" onchange="updateDepotInfo()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-bold">
                         <option value="Brazzaville">Brazzaville</option>
                         <option value="Pointe-Noire">Pointe-Noire</option>
-                        <option value="Dolisie">Dolisie</option>
-                        <option value="Nkayi">Nkayi</option>
                     </select>
                 </div>
-            </div>
 
-            <!-- ASSISTANCE & CGU -->
-            <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-                <h2 class="font-bold text-sm flex items-center gap-2 text-slate-800 dark:text-slate-100">
-                    <i class="fa-solid fa-headset text-emerald-600"></i> Assistance & Informations Légales
-                </h2>
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="https://wa.me/242060000000?text=Bonjour%20Support%20Kassier" target="_blank" class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center gap-2.5">
-                        <i class="fa-brands fa-whatsapp text-emerald-600 text-lg"></i>
-                        <div class="text-left">
-                            <p class="text-xs font-bold text-emerald-700 dark:text-emerald-400">Support WhatsApp</p>
-                            <p class="text-[9px] text-slate-500">Assistance 24/7</p>
-                        </div>
-                    </a>
-                    <button onclick="alert('Support Téléphonique Direct')" class="p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center gap-2.5">
-                        <i class="fa-solid fa-phone text-blue-600 text-base"></i>
-                        <div class="text-left">
-                            <p class="text-xs font-bold text-blue-700 dark:text-blue-400">Centre d'Appels</p>
-                            <p class="text-[9px] text-slate-500">Service Client</p>
-                        </div>
+                <!-- BASCULE THÈME SOMBRE / CLAIR GARANTIE -->
+                <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs font-bold">Thème de l'Application</p>
+                        <p class="text-[10px] text-slate-500">Basculer Sombre / Clair</p>
+                    </div>
+                    <button onclick="toggleTheme()" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold flex items-center gap-1.5 border border-slate-300 dark:border-slate-700">
+                        <span id="themeIcon">🌙</span> <span id="themeText">Sombre</span>
                     </button>
                 </div>
             </div>
 
-            <!-- 👑 COCKPIT SUPER-ADMIN (TOTALEMENT MASQUÉ POUR LES CLIENTS DÉPÔTS) -->
+            <!-- COCKPIT ADMIN PRIVÉ -->
             <div id="superAdminPanel" class="hidden bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 text-white rounded-2xl p-4 border border-emerald-500/40 shadow-2xl space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-2">
@@ -242,43 +212,25 @@
                     </h3>
                     <span class="text-[9px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded-full">Accès Privilégié</span>
                 </div>
-
-                <!-- KPIS RÉSEAU -->
                 <div class="grid grid-cols-3 gap-2 text-center">
                     <div class="bg-slate-800/80 p-2 rounded-xl border border-slate-700">
                         <p class="text-[9px] text-slate-400">Dépôts Total</p>
-                        <p class="text-base font-black text-white mt-0.5" id="adminTotalDepots">1</p>
+                        <p class="text-base font-black text-white mt-0.5">1</p>
                     </div>
                     <div class="bg-slate-800/80 p-2 rounded-xl border border-slate-700">
                         <p class="text-[9px] text-slate-400">Abonnés Actifs</p>
-                        <p class="text-base font-black text-emerald-400 mt-0.5" id="adminActiveSubs">1</p>
+                        <p class="text-base font-black text-emerald-400 mt-0.5">1</p>
                     </div>
                     <div class="bg-slate-800/80 p-2 rounded-xl border border-slate-700">
                         <p class="text-[9px] text-slate-400">Revenu MRR</p>
-                        <p class="text-xs font-black text-amber-400 mt-1" id="adminMRR">12.000 F</p>
-                    </div>
-                </div>
-
-                <!-- GESTION ABONNEMENTS ET SURVEILLANCE -->
-                <div class="space-y-2 pt-1 border-t border-slate-800">
-                    <p class="text-[11px] font-bold text-slate-300">Surveillance Abonnements & Demandes MoMo :</p>
-                    <div class="space-y-2 max-h-52 overflow-y-auto pr-1" id="adminSubList">
-                        <div class="bg-emerald-500/10 border border-emerald-500/30 p-2.5 rounded-xl flex justify-between items-center text-xs">
-                            <div>
-                                <p class="font-extrabold text-emerald-300">Dépôt Central Moungali</p>
-                                <p class="text-[10px] text-slate-300">Plan Grand Dépôt (12.000 FCFA)</p>
-                                <span class="text-[9px] text-emerald-400 font-semibold">✅ Compte Fondateur Super-Admin</span>
-                            </div>
-                        </div>
+                        <p class="text-xs font-black text-amber-400 mt-1">12.000 FCFA</p>
                     </div>
                 </div>
             </div>
-
         </section>
-
     </main>
 
-    <!-- BARRE DE NAVIGATION INFÉRIEURE -->
+    <!-- NAVIGATION INFÉRIEURE -->
     <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-brand-surface/95 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-3 py-2 shadow-2xl">
         <div class="max-w-xl mx-auto flex justify-around items-center">
             <button onclick="switchTab('tab-accueil')" id="nav-tab-accueil" class="nav-btn active flex flex-col items-center gap-1.5 py-1 px-3 rounded-2xl transition">
@@ -304,7 +256,6 @@
         </div>
     </nav>
 
-    <!-- SCRIPT DE CONNEXION SUPABASE & RÔLE ADM -->
     <script>
         const SUPABASE_URL = 'https://vxhndndszbpigurirsgd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_2xK_jIFzYU1Qr9MN3wraGQ_b1M1jg28';
@@ -330,25 +281,35 @@
             }
         }
 
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.textContent = '☀️';
+                text.textContent = 'Clair';
+            } else {
+                html.classList.add('dark');
+                icon.textContent = '🌙';
+                text.textContent = 'Sombre';
+            }
+        }
+
         async function checkUserRole(user) {
             if (!user || !supabaseClient) return;
-
-            // Vérifier dans la table profiles si l'utilisateur est le premier inscrit ou déjà SUPER_ADMIN
-            const { data: profiles, error } = await supabaseClient.from('profiles').select('*');
-            
+            const { data: profiles } = await supabaseClient.from('profiles').select('*');
             let isFirstUser = (!profiles || profiles.length === 0);
             let userProfile = profiles ? profiles.find(p => p.id === user.id) : null;
 
             if (isFirstUser || (userProfile && userProfile.role === 'SUPER_ADMIN')) {
-                // Si c'est le 1er utilisateur, on crée son profil SUPER_ADMIN s'il n'existe pas
                 if (isFirstUser) {
                     await supabaseClient.from('profiles').insert([{ id: user.id, email: user.email, role: 'SUPER_ADMIN' }]);
                 }
-                // DÉVERROUILLER LE COCKPIT SUPER-ADMIN
                 document.getElementById('superAdminPanel').classList.remove('hidden');
                 document.getElementById('userRoleBadge').innerHTML = `<i class="fa-solid fa-crown text-amber-400"></i> <span class="text-amber-400 font-black">Super-Admin</span>`;
             } else {
-                // Client standard : MASQUAGE TOTAL DU COCKPIT
                 document.getElementById('superAdminPanel').classList.add('hidden');
             }
         }
@@ -357,29 +318,19 @@
             const email = document.getElementById('authUserEmail').value;
             const pass = document.getElementById('authUserPass').value;
             if (!email || !pass) return alert("Veuillez saisir votre email et mot de passe");
-
             const { data, error } = await supabaseClient.auth.signUp({ email, password: pass });
             if (error) return alert("Erreur d'inscription : " + error.message);
-            
             alert("Compte créé avec succès !");
-            if (data.user) {
-                updateUIAuth(data.user);
-                checkUserRole(data.user);
-            }
+            if (data.user) { updateUIAuth(data.user); checkUserRole(data.user); }
         }
 
         async function handleSignIn() {
             const email = document.getElementById('authUserEmail').value;
             const pass = document.getElementById('authUserPass').value;
             if (!email || !pass) return alert("Veuillez saisir votre email et mot de passe");
-
             const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
             if (error) return alert("Erreur de connexion : " + error.message);
-
-            if (data.user) {
-                updateUIAuth(data.user);
-                checkUserRole(data.user);
-            }
+            if (data.user) { updateUIAuth(data.user); checkUserRole(data.user); }
         }
 
         async function handleSignOut() {
@@ -402,7 +353,6 @@
             document.getElementById('headerDepotName').textContent = `${name} • ${city}`;
         }
 
-        // Vérifier la session au chargement
         window.addEventListener('load', async () => {
             if (supabaseClient) {
                 const { data: { session } } = await supabaseClient.auth.getSession();
