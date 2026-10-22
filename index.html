@@ -54,7 +54,7 @@
                             Congo
                         </span>
                     </h1>
-                    <p id="headerDepotName" class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">Dépôt Central • Brazzaville</p>
+                    <p id="headerDepotName" class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">Dépôt Central • Pointe-Noire</p>
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
             </div>
         </section>
 
-        <!-- 🚚 LIVRAISON & CALCULATEUR LIBRE -->
+        <!-- 🚚 LIVRAISON -->
         <section id="tab-livraisons" class="hidden space-y-4">
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
                 <h2 class="font-bold text-base mb-3 text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
@@ -127,8 +127,6 @@
                                 <option value="4500">Primus 65cl (4.500 FCFA)</option>
                                 <option value="5000">Beaufort (5.000 FCFA)</option>
                                 <option value="4000">Guinness (4.000 FCFA)</option>
-                                <option value="3500">Top Coca (3.500 FCFA)</option>
-                                <option value="6000">Mutzig (6.000 FCFA)</option>
                             </select>
                         </div>
                         <div>
@@ -139,14 +137,14 @@
                     <div class="p-4 bg-slate-50 dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
                         <div class="flex justify-between items-center text-base font-black pt-2 border-t border-slate-200 dark:border-slate-700 text-emerald-600 dark:text-emerald-400">
                             <span>TOTAL NET :</span>
-                            <span id="txtGrandTotal" class="text-2xl font-black">69.000 FCFA</span>
+                            <span id="txtGrandTotal" class="text-2xl font-black">45.000 FCFA</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 📦 STOCK & AJOUT LIBRE DE PRODUITS -->
+        <!-- 📦 STOCK -->
         <section id="tab-produits" class="hidden space-y-4">
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
                 <div class="flex justify-between items-center">
@@ -155,7 +153,6 @@
                         <i class="fa-solid fa-plus mr-1"></i> Ajouter Boisson
                     </button>
                 </div>
-                <!-- LISTE DYNAMIQUE DES PRODUITS -->
                 <div id="dynamicProductList" class="space-y-2">
                     <div class="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs">
                         <div>
@@ -176,19 +173,40 @@
             </div>
         </section>
 
-        <!-- 👤 PROFIL, VILLES DU CONGO, THÈMES & COCKPIT -->
+        <!-- 👤 PROFIL, AUTHENTIFICATION & COCKPIT -->
         <section id="tab-profil" class="hidden space-y-4">
+            
+            <!-- BLOC AUTHENTIFICATION (POUR CRÉER SON COMPTE ET DEVENIR ADMIN) -->
+            <div id="authBlock" class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+                <h2 class="font-bold text-base text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                    <i class="fa-solid fa-user-lock text-emerald-600"></i> Compte & Authentification
+                </h2>
+                <div id="authForms" class="space-y-3">
+                    <input type="email" id="authUserEmail" placeholder="Adresse Email (ex: moncompte@kassier.cg)" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
+                    <input type="password" id="authUserPass" placeholder="Mot de Passe" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="handleSignIn()" class="bg-emerald-600 text-white font-extrabold text-xs py-2.5 rounded-xl shadow-md hover:bg-emerald-500">Se Connecter</button>
+                        <button onclick="handleSignUp()" class="bg-slate-800 text-slate-200 font-extrabold text-xs py-2.5 rounded-xl shadow-md hover:bg-slate-700">Créer Compte</button>
+                    </div>
+                </div>
+                <div id="authUserInfo" class="hidden space-y-2">
+                    <p class="text-xs text-slate-400">Connecté en tant que : <span id="lblUserEmail" class="font-bold text-emerald-400"></span></p>
+                    <button onclick="handleSignOut()" class="w-full bg-red-600/20 border border-red-500/30 text-red-400 font-extrabold text-xs py-2 rounded-xl">Se Déconnecter</button>
+                </div>
+            </div>
+
             <div class="bg-white dark:bg-brand-surface rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
                 <h2 class="font-bold text-base text-slate-800 dark:text-slate-100">Profil & Localisation du Dépôt</h2>
                 <div>
                     <label class="block text-xs font-bold mb-1">Nom du Dépôt / Établissement</label>
-                    <input type="text" id="depotNameInput" value="Dépôt Central Moungali" onchange="updateDepotInfo()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
+                    <input type="text" id="depotNameInput" value="Dépôt Central Pointe-Noire" onchange="updateDepotInfo()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-medium">
                 </div>
                 <div>
                     <label class="block text-xs font-bold mb-1">Ville / Département 🇨🇬</label>
                     <select id="citySelect" onchange="updateDepotInfo()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-xs font-bold">
-                        <option value="Brazzaville">Brazzaville</option>
                         <option value="Pointe-Noire">Pointe-Noire</option>
+                        <option value="Brazzaville">Brazzaville</option>
                         <option value="Dolisie">Dolisie</option>
                         <option value="Nkayi">Nkayi</option>
                         <option value="Owando">Owando</option>
@@ -200,7 +218,7 @@
                     </select>
                 </div>
 
-                <!-- BASCULE THÈME SOMBRE / CLAIR ROBUSTE -->
+                <!-- BASCULE THÈME SOMBRE / CLAIR -->
                 <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center">
                     <div>
                         <p class="text-xs font-bold">Thème de l'Application</p>
@@ -212,7 +230,7 @@
                 </div>
             </div>
 
-            <!-- COCKPIT ADMIN PRIVÉ -->
+            <!-- COCKPIT ADMIN PRIVÉ (S'affiche uniquement si tu es connecté en Admin) -->
             <div id="superAdminPanel" class="hidden bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 text-white rounded-2xl p-4 border border-emerald-500/40 shadow-2xl space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-2">
@@ -264,7 +282,6 @@
         </div>
     </nav>
 
-    <!-- SCRIPT DE GESTION ROBUSTE -->
     <script>
         const SUPABASE_URL = 'https://vxhndndszbpigurirsgd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_2xK_jIFzYU1Qr9MN3wraGQ_b1M1jg28';
@@ -306,6 +323,62 @@
             }
         }
 
+        async function checkUserRole(user) {
+            if (!user || !supabaseClient) return;
+            try {
+                const { data: profiles } = await supabaseClient.from('profiles').select('*');
+                let isFirstUser = (!profiles || profiles.length === 0);
+                let userProfile = profiles ? profiles.find(p => p.id === user.id) : null;
+
+                if (isFirstUser || (userProfile && userProfile.role === 'SUPER_ADMIN')) {
+                    if (isFirstUser) {
+                        await supabaseClient.from('profiles').insert([{ id: user.id, email: user.email, role: 'SUPER_ADMIN' }]);
+                    }
+                    document.getElementById('superAdminPanel').classList.remove('hidden');
+                    document.getElementById('userRoleBadge').innerHTML = `<i class="fa-solid fa-crown text-amber-400"></i> <span class="text-amber-400 font-black">Super-Admin</span>`;
+                } else {
+                    document.getElementById('superAdminPanel').classList.add('hidden');
+                }
+            } catch (err) {
+                console.log("Erreur rôle:", err);
+            }
+        }
+
+        async function handleSignUp() {
+            const email = document.getElementById('authUserEmail').value;
+            const pass = document.getElementById('authUserPass').value;
+            if (!email || !pass) return alert("Veuillez saisir votre email et mot de passe");
+            
+            const { data, error } = await supabaseClient.auth.signUp({ email, password: pass });
+            if (error) return alert("Erreur d'inscription : " + error.message);
+            alert("Compte créé avec succès !");
+            if (data.user) { updateUIAuth(data.user); checkUserRole(data.user); }
+        }
+
+        async function handleSignIn() {
+            const email = document.getElementById('authUserEmail').value;
+            const pass = document.getElementById('authUserPass').value;
+            if (!email || !pass) return alert("Veuillez saisir votre email et mot de passe");
+            
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+            if (error) return alert("Erreur de connexion : " + error.message);
+            if (data.user) { updateUIAuth(data.user); checkUserRole(data.user); }
+        }
+
+        async function handleSignOut() {
+            await supabaseClient.auth.signOut();
+            document.getElementById('authForms').classList.remove('hidden');
+            document.getElementById('authUserInfo').classList.add('hidden');
+            document.getElementById('superAdminPanel').classList.add('hidden');
+            document.getElementById('userRoleBadge').innerHTML = `<i class="fa-solid fa-clock text-amber-500"></i> <span>16j d'essai</span>`;
+        }
+
+        function updateUIAuth(user) {
+            document.getElementById('authForms').classList.add('hidden');
+            document.getElementById('authUserInfo').classList.remove('hidden');
+            document.getElementById('lblUserEmail').textContent = user.email;
+        }
+
         function openAddProductModal() {
             const name = prompt("Nom de la boisson (ex: Mutzig 65cl) :");
             if (!name) return;
@@ -331,6 +404,16 @@
             const city = document.getElementById('citySelect').value;
             document.getElementById('headerDepotName').textContent = `${name} • ${city}`;
         }
+
+        window.addEventListener('load', async () => {
+            if (supabaseClient) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session && session.user) {
+                    updateUIAuth(session.user);
+                    checkUserRole(session.user);
+                }
+            }
+        });
 
         switchTab('tab-accueil');
     </script>
