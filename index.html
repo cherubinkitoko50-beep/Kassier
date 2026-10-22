@@ -1,0 +1,50 @@
+-- TABLES PRINCIPALES KASSIER CONGO 🇨🇬
+
+CREATE TABLE IF NOT EXISTS establishments (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    city TEXT NOT NULL DEFAULT 'Brazzaville',
+    department TEXT NOT NULL DEFAULT 'Brazzaville',
+    phone TEXT NOT NULL,
+    subscription_plan TEXT DEFAULT 'standard',
+    subscription_status TEXT DEFAULT 'trial',
+    trial_ends_at TIMESTAMPTZ DEFAULT (now() + interval '16 days'),
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS products (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    establishment_id UUID REFERENCES establishments(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    bottle_price NUMERIC DEFAULT 0,
+    crate_price NUMERIC DEFAULT 0,
+    deposit_price NUMERIC DEFAULT 3000,
+    stock_crates INT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS clients (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    establishment_id UUID REFERENCES establishments(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    phone TEXT,
+    credit_limit NUMERIC DEFAULT 150000,
+    crates_held INT DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS saas_pricing (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    plan_bar NUMERIC DEFAULT 3000,
+    plan_standard NUMERIC DEFAULT 7500,
+    plan_pro NUMERIC DEFAULT 12000,
+    trial_days INT DEFAULT 16,
+    updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Insertion des prix SaaS par défaut
+INSERT INTO saas_pricing (plan_bar, plan_standard, plan_pro, trial_days) VALUES (3000, 7500, 12000, 16);
+
+-- Activer la sécurité RLS
+ALTER TABLE establishments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+ALTER TABLE clients ENABLE ROW LEVEL SECURITY;
